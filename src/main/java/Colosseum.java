@@ -39,6 +39,16 @@ public class Colosseum {
     static Scanner myScan;
 
     /**
+     * Tracks player choice in int inputs.
+     */
+    static int playerChoice;
+
+    /**
+     * Tracks player choice in String inputs.
+     */
+    static String playerType;
+
+    /**
      * We are now reimplementing this to meet our new Pokemon specifications. <br>
      * The process will still be the same for getting the information from the user,
      * but now we are adding the feature where the user can pick what TYPE of
@@ -103,6 +113,71 @@ public class Colosseum {
      */
     public static Pokemon buildPokemon() {
         Pokemon returnPokemon = null;
+        boolean validInput = false;
+
+        //lets player to set their pokemon type
+        printTypeMenu();
+        playerChoice = myScan.nextInt();
+
+        while (validInput == false) {
+            if (playerChoice == 1) {
+                returnPokemon = new ElectricPokemon();
+                validInput = true;
+            } else if (playerChoice == 2) {
+                returnPokemon = new FirePokemon();
+                validInput = true;
+            } else if (playerChoice == 3) {
+                returnPokemon = new WaterPokemon();
+                validInput = true;
+            } else {
+                System.out.println("Sorry, you must pick either 1, 2, or 3.");
+                playerChoice = myScan.nextInt();
+            }
+        }
+
+        System.out.println("Please name your pokemon: ");
+        playerType = myScan.next();
+
+        //allows player to set hit points
+        boolean input = false;
+        System.out.println("How many hit points will it have? (1-50): ");
+        int playerPokemonHP = myScan.nextInt();
+        while (input == false) {
+            if (playerPokemonHP > 50 || playerPokemonHP < 1) {
+                System.out.println("Sorry. Hit points must be between 1 and 50: ");
+                playerPokemonHP = myScan.nextInt();
+            } else {
+                System.out.println("Your pokemon's hit points have been set to " + playerPokemonHP + ".");
+                input = true;
+            }
+        }
+
+        //allows player to set attack and defense levels
+        System.out.println("Split fifty points between attack level and defense\nEnter your attack level (1-49): ");
+        int playerPokemonAtkLvl = myScan.nextInt();
+        input = false;
+        while (input == false) {
+            if (playerPokemonAtkLvl > 49 || playerPokemonAtkLvl < 1) {
+                System.out.println("Sorry. The attack level must be between 1 and 49.");
+                playerPokemonAtkLvl = myScan.nextInt();
+            } else {
+                System.out.println("Your pokemon's attack level has been set to " + playerPokemonAtkLvl + ".");
+                input = true;
+            }
+        }
+        System.out.println("Enter your defense level (1-" + (MAX_HIT_POINTS - playerPokemonAtkLvl) + "): ");
+        int playerPokemonDefLvl = myScan.nextInt();
+        input = false;
+        while (input == false) {
+            if (playerPokemonDefLvl > (MAX_HIT_POINTS - playerPokemonAtkLvl) || playerPokemonDefLvl < 1) {
+                System.out.println("Sorry. The defense level must be between 1 and " + (MAX_HIT_POINTS - playerPokemonAtkLvl) + ".");
+                playerPokemonDefLvl = myScan.nextInt();
+            } else {
+                System.out.println("Your pokemon's defense level has been set to " + playerPokemonDefLvl + ".");
+                input = true;
+            }
+        }
+
         return returnPokemon;
     }
 
@@ -200,7 +275,6 @@ public class Colosseum {
         System.out.println("1 - Electric Pokemon ");
         System.out.println("2 - Fire Pokemon");
         System.out.println("3 - Water Pokemon");
-
     }
 
     /**
