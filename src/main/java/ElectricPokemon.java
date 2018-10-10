@@ -59,6 +59,8 @@ public class ElectricPokemon extends Pokemon {
      * Implement this.
      */
     public boolean attack(final Pokemon opponent) {
+
+
         return false;
     }
 

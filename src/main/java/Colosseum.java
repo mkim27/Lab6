@@ -39,16 +39,6 @@ public class Colosseum {
     static Scanner myScan;
 
     /**
-     * Tracks player choice in int inputs.
-     */
-    static int playerChoice;
-
-    /**
-     * Tracks player choice in String inputs.
-     */
-    static String playerType;
-
-    /**
      * We are now reimplementing this to meet our new Pokemon specifications. <br>
      * The process will still be the same for getting the information from the user,
      * but now we are adding the feature where the user can pick what TYPE of
@@ -112,8 +102,10 @@ public class Colosseum {
      * (Look, we can return objects too!)
      */
     public static Pokemon buildPokemon() {
-        Pokemon returnPokemon = null;
+        Pokemon playerPokemon = null;
         boolean validInput = false;
+        int playerChoice;
+        String playerType;
 
         //lets player to set their pokemon type
         printTypeMenu();
@@ -121,13 +113,13 @@ public class Colosseum {
 
         while (validInput == false) {
             if (playerChoice == 1) {
-                returnPokemon = new ElectricPokemon();
+                playerPokemon = new ElectricPokemon();
                 validInput = true;
             } else if (playerChoice == 2) {
-                returnPokemon = new FirePokemon();
+                playerPokemon = new FirePokemon();
                 validInput = true;
             } else if (playerChoice == 3) {
-                returnPokemon = new WaterPokemon();
+                playerPokemon = new WaterPokemon();
                 validInput = true;
             } else {
                 System.out.println("Sorry, you must pick either 1, 2, or 3.");
@@ -137,6 +129,7 @@ public class Colosseum {
 
         System.out.println("Please name your pokemon: ");
         playerType = myScan.next();
+        playerPokemon.setName(playerType);
 
         //allows player to set hit points
         boolean input = false;
@@ -148,6 +141,7 @@ public class Colosseum {
                 playerPokemonHP = myScan.nextInt();
             } else {
                 System.out.println("Your pokemon's hit points have been set to " + playerPokemonHP + ".");
+                playerPokemon.setHitPoints(playerPokemonHP);
                 input = true;
             }
         }
@@ -162,6 +156,7 @@ public class Colosseum {
                 playerPokemonAtkLvl = myScan.nextInt();
             } else {
                 System.out.println("Your pokemon's attack level has been set to " + playerPokemonAtkLvl + ".");
+                playerPokemon.setAttackLevel(playerPokemonAtkLvl);
                 input = true;
             }
         }
@@ -174,11 +169,12 @@ public class Colosseum {
                 playerPokemonDefLvl = myScan.nextInt();
             } else {
                 System.out.println("Your pokemon's defense level has been set to " + playerPokemonDefLvl + ".");
+                playerPokemon.setDefenseLevel(playerPokemonDefLvl);
                 input = true;
             }
         }
 
-        return returnPokemon;
+        return playerPokemon;
     }
 
     /**
