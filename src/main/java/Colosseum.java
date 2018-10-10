@@ -210,7 +210,7 @@ public class Colosseum {
     public static void determineWinner() {
         if (firstPokemon.getHitPoints() <= 0) {
             System.out.println(secondPokemon.getName() + " is the winner!");
-        } else {
+        } else if (secondPokemon.getHitPoints() <= 0) {
             System.out.println(firstPokemon.getName() + " is the winner!");
         }
     }
